@@ -19,50 +19,77 @@ from . import (
 class Brand(models.Model):
     name = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.name
+
 
 class CarModel(models.Model):
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name='car_models')
     name = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.name
+
 
 class RoofType(models.Model):
     name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
 
 
 class Color(models.Model):
     name = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.name
+
 
 class FuelType(models.Model):
     name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
 
 
 class GearBox(models.Model):
     name = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.name
+
 
 class EngineCapacity(models.Model):
     volume = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.volume
 
 
 class ForCountry(models.Model):
     name = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.name
+
 
 class CarSupply(models.Model):
     name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
 
 
 
 class Announcement(TrackingModel):
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name='announcements')
-    CarModel = models.ForeignKey(CarModel, on_delete=models.CASCADE, related_name='announcements')
-    RoofType = models.ForeignKey(RoofType, on_delete=models.CASCADE, related_name='announcements')
-    Color = models.ForeignKey(Color, on_delete=models.CASCADE, related_name='announcements')
-    FuelType = models.ForeignKey(FuelType, on_delete=models.CASCADE, related_name='announcements')
-    GearBox = models.ForeignKey(GearBox, on_delete=models.CASCADE, related_name='announcements')
-    EngineCapacity = models.ForeignKey(EngineCapacity, on_delete=models.CASCADE, related_name='announcements')
-    ForCountry = models.ForeignKey(ForCountry, on_delete=models.CASCADE, related_name='announcements')
+    car_model = models.ForeignKey(CarModel, on_delete=models.CASCADE, related_name='announcements')
+    roof_type = models.ForeignKey(RoofType, on_delete=models.CASCADE, related_name='announcements')
+    color = models.ForeignKey(Color, on_delete=models.CASCADE, related_name='announcements')
+    fuel_type = models.ForeignKey(FuelType, on_delete=models.CASCADE, related_name='announcements')
+    gear_box = models.ForeignKey(GearBox, on_delete=models.CASCADE, related_name='announcements')
+    engine_capacity = models.ForeignKey(EngineCapacity, on_delete=models.CASCADE, related_name='announcements')
+    for_country = models.ForeignKey(ForCountry, on_delete=models.CASCADE, related_name='announcements')
 
     car_supply = models.ManyToManyField(CarSupply, related_name='announcements')
 
@@ -93,3 +120,6 @@ class Announcement(TrackingModel):
 class AnnouncementImage(models.Model):
     announcement = models.ForeignKey(Announcement, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='announcements')
+
+    def __str__(self):
+        return self.announcement
