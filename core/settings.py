@@ -29,6 +29,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# New User app model
+AUTH_USER_MODEL = "accounts.User"
 
 # Application definition
 
@@ -44,6 +46,7 @@ INSTALLED_APPS = [
     'rest_framework',
 
     # apps
+    'accounts.apps.AccountsConfig',
     'cars.apps.CarsConfig',
 ]
 
